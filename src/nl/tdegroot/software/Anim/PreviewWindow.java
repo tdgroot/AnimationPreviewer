@@ -13,10 +13,10 @@ public class PreviewWindow extends Canvas implements Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    public static int width = 64;
-    public static int height = 32;
-    private static int scale = 16;
-    private static Dimension size;
+    private int width = 128;
+    private int height = 64;
+    private int scale = 3;
+    private Dimension size;
     private boolean running = false;
 
     private Thread thread;
@@ -24,30 +24,27 @@ public class PreviewWindow extends Canvas implements Runnable {
     private Sprite sprite;
     private SpriteSheet spriteSheet;
 
-    private BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-    private int[] pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
+    private int sheetWidth, sheetHeight;
+    private String path;
+
+    private BufferedImage img;
+    private int[] pixels;
+    private int loopSpeed = 32;
 
     public PreviewWindow() {
+
+    }
+
+    public synchronized void init() {
+        img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
         size = new Dimension(width * scale, height * scale);
         screen = new Screen(width, height);
         sprite = new Sprite("res/sprite.png");
-        spriteSheet = new SpriteSheet(16, 16, "res/sheet.png");
-        init();
-    }
-
-    public void init() {
         setPreferredSize(size);
         setMinimumSize(size);
         setMaximumSize(size);
         addKeyListener(new Keyboard());
-    }
-
-    public static int getWindowWidth() {
-        return width * scale;
-    }
-
-    public static int getWindowHeight() {
-        return height * scale;
     }
 
     public synchronized void start() {
@@ -58,8 +55,14 @@ public class PreviewWindow extends Canvas implements Runnable {
 
     public synchronized void stop() {
         running = false;
-        System.exit(0);
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
+    long last = System.currentTimeMillis();
 
     public void run() {
         long lastTime = System.nanoTime();
@@ -74,8 +77,11 @@ public class PreviewWindow extends Canvas implements Runnable {
             unprocessed += (now - lastTime) / nsPerTick;
             lastTime = now;
             while (unprocessed >= 1) {
+                long currentTime = System.currentTimeMillis();
+                int delta = (int) (currentTime - last);
+                last = currentTime;
                 ticks++;
-                tick();
+                tick(delta);
                 unprocessed -= 1;
             }
 
@@ -93,11 +99,13 @@ public class PreviewWindow extends Canvas implements Runnable {
 
     int time;
     int animIndex;
-
-    public void tick() {
+    public void tick(int delta) {
         time++;
-        if (time % 16 == 0)
-            animIndex = (animIndex + 1) % spriteSheet.size;
+        System.out.println("Delta: " + delta);
+        if (spriteSheet != null) {
+            if (time % loopSpeed == 0)
+                animIndex = (animIndex + 1) % spriteSheet.size;
+        }
     }
 
     private void render() {
@@ -109,21 +117,46 @@ public class PreviewWindow extends Canvas implements Runnable {
 
         screen.clear();
 
-        screen.render(0, 0, sprite);
-
-        spriteSheet.render(16, 0, animIndex % spriteSheet.xx, animIndex / spriteSheet.xx, screen);
+        if (spriteSheet != null)
+            spriteSheet.render(16, 0, animIndex % spriteSheet.xx, animIndex / spriteSheet.xx, screen);
 
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
         }
 
         Graphics g = bs.getDrawGraphics();
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, getWidth(), getHeight());
 
         g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
         g.setColor(Color.WHITE);
 
         g.dispose();
         bs.show();
+    }
+
+    public void loadSheet(int sheetWidth, int sheetHeight, String path) {
+        this.sheetWidth = sheetWidth;
+        this.sheetHeight = sheetHeight;
+        this.path = path;
+        spriteSheet = new SpriteSheet(sheetWidth, sheetHeight, path);
+    }
+
+    public synchronized void setPainting(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public synchronized void setScale(int scale) {
+        this.scale = scale;
+    }
+
+    public void setLoopSpeed(int loopSpeed) {
+        this.loopSpeed = loopSpeed;
+    }
+
+    public int getLoopSpeed() {
+        return loopSpeed;
     }
 }
 

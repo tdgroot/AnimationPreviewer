@@ -31,8 +31,7 @@ public class Screen {
 
     public void clear() {
         for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = 0xFFFFFFFF;
-//            pixels[i] = 0;
+            pixels[i] = 0xFF000000;
         }
     }
 }

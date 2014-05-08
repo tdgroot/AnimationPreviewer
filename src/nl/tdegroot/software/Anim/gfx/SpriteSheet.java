@@ -2,12 +2,12 @@ package nl.tdegroot.software.Anim.gfx;
 
 public class SpriteSheet {
 
+    public int size;
     public int xx;
     private int yy;
     public int width, height;
     public int sheetWidth, sheetHeight;
     private Sprite sheet;
-    public int size;
     private Sprite[] sprites;
 
     public SpriteSheet(int clipWidth, int clipHeight, String ref) {

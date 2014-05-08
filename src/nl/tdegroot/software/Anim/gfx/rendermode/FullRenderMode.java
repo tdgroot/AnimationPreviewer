@@ -18,6 +18,6 @@ public class FullRenderMode extends RenderMode {
     }
 
     public void render(int x, int y, SpriteSheet sheet, Screen screen) {
-        sheet.render(16, 0, animIndex % sheet.xx, animIndex / sheet.xx, screen);
+        sheet.render(x, y, animIndex % sheet.xx, animIndex / sheet.xx, screen);
     }
 }

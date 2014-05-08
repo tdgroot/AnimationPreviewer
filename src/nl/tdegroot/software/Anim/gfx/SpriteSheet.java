@@ -4,7 +4,7 @@ public class SpriteSheet {
 
     public int size;
     public int xx;
-    private int yy;
+    public int yy;
     public int frameWidth, frameHeight;
     public int sheetWidth, sheetHeight;
     private Sprite sheet;

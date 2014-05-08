@@ -1,5 +1,11 @@
 package nl.tdegroot.software.Anim;
 
+import nl.tdegroot.software.Anim.gfx.rendermode.CustomRenderMode;
+import nl.tdegroot.software.Anim.gfx.rendermode.FullRenderMode;
+import nl.tdegroot.software.Anim.gfx.rendermode.LineRenderMode;
+import nl.tdegroot.software.Anim.gfx.rendermode.RenderMode;
+import nl.tdegroot.software.Anim.gfx.SpriteSheet;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
@@ -13,12 +19,23 @@ public class PreferencesWindow extends JFrame {
     private JTextField tbPaintWidth;
     private JTextField tbPaintHeight;
     private JTextField tbScale;
-    private PreviewWindow previewer;
-    private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+    private JTabbedPane tabbedPane;
     private JTextField tbFilePath;
-    private JTextField tbSpriteWidth;
-    private JTextField tbSpriteHeight;
+    private JTextField tbFrameWidth;
+    private JTextField tbFrameHeight;
     private JTextField tbLoopSpeed;
+    private JRadioButton rdbtnFull;
+    private JRadioButton rdbtnOneLine;
+    private JRadioButton rdbtnCustom;
+    private JSpinner spStartColumn;
+    private JSpinner spStartRow;
+    private JSpinner spColumns;
+    private JSpinner spRows;
+    private JFrame frame;
+
+    private Previewer previewer;
+    private RenderMode renderMode;
+    private SpriteSheet sheet;
 
     public PreferencesWindow() {
         try {
@@ -26,6 +43,7 @@ public class PreferencesWindow extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();
@@ -54,30 +72,30 @@ public class PreferencesWindow extends JFrame {
                 chooseFile();
             }
         });
-        button.setBounds(200, 10, 28, 23);
+        button.setBounds(200, 11, 28, 19);
         panel.add(button);
 
-        JLabel lblSpriteWidth = new JLabel("Sprite Width:");
-        lblSpriteWidth.setBounds(10, 51, 84, 14);
-        panel.add(lblSpriteWidth);
+        JLabel lblFrameWidth = new JLabel("Frame Width:");
+        lblFrameWidth.setBounds(10, 51, 84, 14);
+        panel.add(lblFrameWidth);
 
-        tbSpriteWidth = new JTextField();
-        tbSpriteWidth.setBounds(104, 48, 86, 20);
-        panel.add(tbSpriteWidth);
-        tbSpriteWidth.setColumns(10);
+        tbFrameWidth = new JTextField();
+        tbFrameWidth.setBounds(104, 48, 86, 20);
+        panel.add(tbFrameWidth);
+        tbFrameWidth.setColumns(10);
 
         JLabel label_1 = new JLabel("px");
         label_1.setBounds(199, 51, 29, 14);
         panel.add(label_1);
 
-        JLabel lblSpriteHeight = new JLabel("Sprite Height:");
-        lblSpriteHeight.setBounds(10, 82, 84, 14);
-        panel.add(lblSpriteHeight);
+        JLabel lblFrameHeight = new JLabel("Frame Height:");
+        lblFrameHeight.setBounds(10, 82, 84, 14);
+        panel.add(lblFrameHeight);
 
-        tbSpriteHeight = new JTextField();
-        tbSpriteHeight.setBounds(104, 79, 86, 20);
-        panel.add(tbSpriteHeight);
-        tbSpriteHeight.setColumns(10);
+        tbFrameHeight = new JTextField();
+        tbFrameHeight.setBounds(104, 79, 86, 20);
+        panel.add(tbFrameHeight);
+        tbFrameHeight.setColumns(10);
 
         JLabel label_2 = new JLabel("px");
         label_2.setBounds(200, 82, 29, 14);
@@ -115,6 +133,58 @@ public class PreferencesWindow extends JFrame {
         label_3.setBounds(10, 12, 60, 14);
         panel_2.add(label_3);
 
+        rdbtnFull = new JRadioButton("Full image loop");
+        rdbtnFull.setBounds(10, 66, 109, 23);
+        panel_2.add(rdbtnFull);
+
+        rdbtnOneLine = new JRadioButton("Only one line");
+        rdbtnOneLine.setBounds(158, 66, 115, 23);
+        panel_2.add(rdbtnOneLine);
+
+        rdbtnCustom = new JRadioButton("Custom");
+        rdbtnCustom.setBounds(322, 66, 109, 23);
+        panel_2.add(rdbtnCustom);
+
+        ButtonGroup group = new ButtonGroup();
+
+        group.add(rdbtnFull);
+        group.add(rdbtnOneLine);
+        group.add(rdbtnCustom);
+
+        JLabel lblStartColumn = new JLabel("Start column:");
+        lblStartColumn.setBounds(10, 118, 73, 14);
+        panel_2.add(lblStartColumn);
+
+        JLabel lblStartRow = new JLabel("Start Row:");
+        lblStartRow.setBounds(150, 118, 60, 14);
+        panel_2.add(lblStartRow);
+
+        spStartColumn = new JSpinner();
+        spStartColumn.setBounds(80, 116, 60, 18);
+        panel_2.add(spStartColumn);
+
+        spStartRow = new JSpinner();
+        spStartRow.setBounds(213, 116, 60, 18);
+        panel_2.add(spStartRow);
+
+        JLabel lblColumns = new JLabel("Columns:");
+        lblColumns.setBounds(31, 145, 63, 14);
+        panel_2.add(lblColumns);
+
+        spColumns = new JSpinner();
+        spColumns.setBounds(80, 143, 60, 18);
+        panel_2.add(spColumns);
+
+        JLabel lblRows = new JLabel("Rows:");
+        lblRows.setBounds(160, 145, 46, 14);
+        panel_2.add(lblRows);
+
+        spRows = new JSpinner();
+        spRows.setBounds(213, 143, 60, 18);
+        panel_2.add(spRows);
+
+        group.setSelected(rdbtnFull.getModel(), true);
+
         JPanel panel_1 = new JPanel();
         tabbedPane.addTab("Advanced", null, panel_1, null);
         panel_1.setLayout(null);
@@ -122,7 +192,7 @@ public class PreferencesWindow extends JFrame {
         tbPaintWidth = new JTextField();
         tbPaintWidth.setBounds(82, 11, 86, 20);
         panel_1.add(tbPaintWidth);
-        tbPaintWidth.setText("128");
+        tbPaintWidth.setText("256");
         tbPaintWidth.setColumns(10);
 
         JLabel lblWidth = new JLabel("Paint Width:");
@@ -136,7 +206,7 @@ public class PreferencesWindow extends JFrame {
         tbPaintHeight = new JTextField();
         tbPaintHeight.setBounds(298, 11, 86, 20);
         panel_1.add(tbPaintHeight);
-        tbPaintHeight.setText("64");
+        tbPaintHeight.setText("128");
         tbPaintHeight.setColumns(10);
 
         JLabel lblNewLabel = new JLabel("px");
@@ -150,7 +220,7 @@ public class PreferencesWindow extends JFrame {
         tbScale = new JTextField();
         tbScale.setBounds(82, 42, 86, 20);
         panel_1.add(tbScale);
-        tbScale.setText("3");
+        tbScale.setText("4");
         tbScale.setColumns(10);
 
         JLabel lblNewLabel_1 = new JLabel("Scale:");
@@ -161,26 +231,54 @@ public class PreferencesWindow extends JFrame {
         btnUpdateScreen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 previewer.stop();
-                Boot.mainFrame.dispose();
+                frame.dispose();
                 startPreviewer();
 
             }
         });
         btnUpdateScreen.setBounds(164, 214, 129, 23);
         panel_1.add(btnUpdateScreen);
+        init();
+    }
+
+    private void init() {
+        renderMode = new FullRenderMode();
         startPreviewer();
     }
 
     private void updateAnimator() {
+        int startColumn = (Integer) spStartColumn.getValue();
+        int startRow = (Integer) spStartRow.getValue();
+        int columns = (Integer) spColumns.getValue();
+        int rows = (Integer) spRows.getValue();
         int loopSpeed = Integer.parseInt(tbLoopSpeed.getText());
-        previewer.setLoopSpeed(loopSpeed);
+
+        if (renderMode == null) { // TODO: Check if RenderMode changed, this is gonna bug!
+            if (rdbtnFull.isSelected()) renderMode = new FullRenderMode();
+            if (rdbtnOneLine.isSelected()) renderMode = new LineRenderMode(startColumn, startRow, columns, rows);
+            if (rdbtnCustom.isSelected()) renderMode = new CustomRenderMode(startColumn, startRow, columns, rows);
+            renderMode.setLoopSpeed(loopSpeed);
+        } else {
+            renderMode.setStartColumn(startColumn);
+            renderMode.setStartRow(startRow);
+            renderMode.setColumns(columns);
+            renderMode.setRows(rows);
+            renderMode.setLoopSpeed(loopSpeed);
+        }
+        previewer.setRenderMode(renderMode);
     }
 
     private void updateSpriteSheet() {
-        int width = Integer.parseInt(tbSpriteWidth.getText());
-        int height = Integer.parseInt(tbSpriteHeight.getText());
+        int width = Integer.parseInt(tbFrameWidth.getText());
+        int height = Integer.parseInt(tbFrameHeight.getText());
+
         String path = tbFilePath.getText();
-        previewer.loadSheet(width, height, path);
+
+        sheet = new SpriteSheet(width, height, path);
+        renderMode = new FullRenderMode();
+
+        previewer.setSheet(width, height, path, sheet);
+        previewer.setRenderMode(renderMode);
     }
 
     private void chooseFile() {
@@ -192,7 +290,8 @@ public class PreferencesWindow extends JFrame {
                 if (i > 0) {
                     extension = file.getName().substring(i + 1).toLowerCase();
                 }
-                if (extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg") || extension.equals("bmp")) return true;
+                if (extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg") || extension.equals("bmp"))
+                    return true;
 
                 return false;
             }
@@ -209,8 +308,8 @@ public class PreferencesWindow extends JFrame {
     }
 
     private void startPreviewer() {
-        Boot.mainFrame = new JFrame();
-        previewer = new PreviewWindow();
+        frame = new JFrame();
+        previewer = new Previewer();
         try {
             int paintWidth = Integer.parseInt(tbPaintWidth.getText());
             int paintHeight = Integer.parseInt(tbPaintHeight.getText());
@@ -218,26 +317,29 @@ public class PreferencesWindow extends JFrame {
             int loopSpeed = Integer.parseInt(tbLoopSpeed.getText());
             int frameWidth;
             int frameHeight;
-            String sheet;
-            frameWidth = Integer.parseInt(tbSpriteWidth.getText());
-            frameHeight = Integer.parseInt(tbSpriteHeight.getText());
-            sheet = tbFilePath.getText();
+            String path;
+            frameWidth = Integer.parseInt(tbFrameWidth.getText());
+            frameHeight = Integer.parseInt(tbFrameHeight.getText());
+            path = tbFilePath.getText();
             previewer.setPainting(paintWidth, paintHeight);
             previewer.setScale(scale);
-            previewer.setLoopSpeed(loopSpeed);
+            renderMode.setLoopSpeed(loopSpeed);
+            previewer.setRenderMode(renderMode);
+
             if (frameWidth != 0 && frameHeight != 0 && !sheet.equals(""))
-                previewer.loadSheet(frameWidth, frameHeight, sheet);
+                previewer.setSheet(frameWidth, frameHeight, path, sheet);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
         previewer.init();
-        Boot.mainFrame.getContentPane().add(previewer);
-        Boot.mainFrame.pack();
-        Boot.mainFrame.setTitle("Animation Previewer");
-        Boot.mainFrame.setLocationRelativeTo(null);
-        Boot.mainFrame.setVisible(true);
-        Boot.mainFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        frame.getContentPane().add(previewer);
+        frame.pack();
+        frame.setTitle("Animation Previewer");
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
         previewer.start();
     }
-
 }

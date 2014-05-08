@@ -1,7 +1,7 @@
 package nl.tdegroot.software.Anim;
 
+import nl.tdegroot.software.Anim.gfx.rendermode.RenderMode;
 import nl.tdegroot.software.Anim.gfx.Screen;
-import nl.tdegroot.software.Anim.gfx.Sprite;
 import nl.tdegroot.software.Anim.gfx.SpriteSheet;
 
 import java.awt.*;
@@ -9,29 +9,30 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-public class PreviewWindow extends Canvas implements Runnable {
+public class Previewer extends Canvas implements Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    private int width = 128;
-    private int height = 64;
-    private int scale = 3;
+    private int width = 256;
+    private int height = 128;
+    private int scale = 4;
     private Dimension size;
     private boolean running = false;
 
     private Thread thread;
     private Screen screen;
-    private Sprite sprite;
-    private SpriteSheet spriteSheet;
 
-    private int sheetWidth, sheetHeight;
+    private RenderMode renderMode;
+
+    private SpriteSheet sheet;
+    private int frameWidth, frameHeight;
     private String path;
 
     private BufferedImage img;
     private int[] pixels;
     private int loopSpeed = 32;
 
-    public PreviewWindow() {
+    public Previewer() {
 
     }
 
@@ -40,7 +41,6 @@ public class PreviewWindow extends Canvas implements Runnable {
         pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
         size = new Dimension(width * scale, height * scale);
         screen = new Screen(width, height);
-        sprite = new Sprite("res/sprite.png");
         setPreferredSize(size);
         setMinimumSize(size);
         setMaximumSize(size);
@@ -97,15 +97,9 @@ public class PreviewWindow extends Canvas implements Runnable {
         }
     }
 
-    int time;
-    int animIndex;
     public void tick(int delta) {
-        time++;
-        System.out.println("Delta: " + delta);
-        if (spriteSheet != null) {
-            if (time % loopSpeed == 0)
-                animIndex = (animIndex + 1) % spriteSheet.size;
-        }
+        if (renderMode != null)
+            renderMode.tick(delta, sheet);
     }
 
     private void render() {
@@ -117,8 +111,8 @@ public class PreviewWindow extends Canvas implements Runnable {
 
         screen.clear();
 
-        if (spriteSheet != null)
-            spriteSheet.render(16, 0, animIndex % spriteSheet.xx, animIndex / spriteSheet.xx, screen);
+        if (renderMode != null)
+            renderMode.render(50, 50, sheet, screen);
 
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
@@ -135,28 +129,28 @@ public class PreviewWindow extends Canvas implements Runnable {
         bs.show();
     }
 
-    public void loadSheet(int sheetWidth, int sheetHeight, String path) {
-        this.sheetWidth = sheetWidth;
-        this.sheetHeight = sheetHeight;
-        this.path = path;
-        spriteSheet = new SpriteSheet(sheetWidth, sheetHeight, path);
-    }
-
-    public synchronized void setPainting(int width, int height) {
+    public void setPainting(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
-    public synchronized void setScale(int scale) {
+    public void setScale(int scale) {
         this.scale = scale;
     }
 
-    public void setLoopSpeed(int loopSpeed) {
-        this.loopSpeed = loopSpeed;
+    public synchronized void setSheet(int frameWidth, int frameHeight, String path, SpriteSheet sheet) {
+        this.frameWidth = frameWidth;
+        this.frameHeight = frameHeight;
+        this.path = path;
+        this.sheet = sheet;
     }
 
-    public int getLoopSpeed() {
-        return loopSpeed;
+    public RenderMode getRenderMode() {
+        return renderMode;
+    }
+
+    public synchronized void setRenderMode(RenderMode renderMode) {
+        this.renderMode = renderMode;
     }
 }
 

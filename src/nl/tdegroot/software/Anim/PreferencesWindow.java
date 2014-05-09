@@ -24,6 +24,7 @@ public class PreferencesWindow extends JFrame {
     private JTextField tbFilePath;
     private JTextField tbFrameWidth;
     private JTextField tbFrameHeight;
+    private JTextField tbInterval;
     private JSpinner spLoopSpeed;
     private JRadioButton rdbtnFull;
     private JRadioButton rdbtnOneRow;
@@ -35,12 +36,12 @@ public class PreferencesWindow extends JFrame {
     private JButton btnPause;
     private JLabel lblCurrentColumn;
     private JLabel lblCurrentRow;
-    private JFrame frame;
 
+    private JFrame frame;
     private Previewer previewer;
     private RenderMode renderMode;
-    private SpriteSheet sheet;
 
+    private SpriteSheet sheet;
     private String lastButton = "";
     private boolean renderModeChanged = true;
     private boolean paused = false;
@@ -118,6 +119,20 @@ public class PreferencesWindow extends JFrame {
         });
         btnUpdateSpritesheet.setBounds(41, 214, 137, 23);
         panel.add(btnUpdateSpritesheet);
+
+        JLabel lblReloadInterval = new JLabel("Reload Interval:");
+        lblReloadInterval.setBounds(10, 107, 84, 14);
+        panel.add(lblReloadInterval);
+
+        tbInterval = new JTextField();
+        tbInterval.setText("1000");
+        tbInterval.setBounds(104, 104, 86, 20);
+        panel.add(tbInterval);
+        tbInterval.setColumns(10);
+
+        JLabel lblMs = new JLabel("ms");
+        lblMs.setBounds(200, 107, 46, 14);
+        panel.add(lblMs);
 
         JPanel panel_2 = new JPanel();
         tabbedPane.addTab("Animator", null, panel_2, null);
@@ -274,35 +289,35 @@ public class PreferencesWindow extends JFrame {
 
         btnPause = new JButton("Pause");
         btnPause.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(ActionEvent arg0) {
                 pause();
-        	}
+            }
         });
         btnPause.setBounds(165, 214, 109, 23);
         panel_3.add(btnPause);
-        
+
         JButton btnPreviousFrame = new JButton("Previous Frame");
         btnPreviousFrame.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		previousFrame();
-        	}
+            public void actionPerformed(ActionEvent e) {
+                previousFrame();
+            }
         });
         btnPreviousFrame.setBounds(43, 214, 109, 23);
         panel_3.add(btnPreviousFrame);
-        
+
         JButton btnNextFrame = new JButton("Next Frame");
         btnNextFrame.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		nextFrame();
-        	}
+            public void actionPerformed(ActionEvent e) {
+                nextFrame();
+            }
         });
         btnNextFrame.setBounds(284, 214, 104, 23);
         panel_3.add(btnNextFrame);
-        
+
         JLabel lblNewLabel_4 = new JLabel("Current Column:");
         lblNewLabel_4.setBounds(43, 37, 79, 14);
         panel_3.add(lblNewLabel_4);
-        
+
         lblCurrentColumn = new JLabel("0");
         lblCurrentColumn.setBounds(132, 37, 46, 14);
         panel_3.add(lblCurrentColumn);
@@ -310,7 +325,7 @@ public class PreferencesWindow extends JFrame {
         lblCurrentRow = new JLabel("0");
         lblCurrentRow.setBounds(132, 66, 46, 14);
         panel_3.add(lblCurrentRow);
-        
+
         JLabel lblCurrentRow_1 = new JLabel("Current Row:");
         lblCurrentRow_1.setBounds(43, 66, 79, 14);
         panel_3.add(lblCurrentRow_1);
@@ -419,12 +434,14 @@ public class PreferencesWindow extends JFrame {
     private void updateSpriteSheet() {
         int width = Integer.parseInt(tbFrameWidth.getText());
         int height = Integer.parseInt(tbFrameHeight.getText());
+        int interval = Integer.parseInt(tbInterval.getText());
 
         String path = tbFilePath.getText();
 
         sheet = new SpriteSheet(width, height, path);
         updateAnimator();
         previewer.setSheet(width, height, path, sheet);
+        previewer.setReloadInterval(interval);
     }
 
     private void chooseFile() {
@@ -487,6 +504,10 @@ public class PreferencesWindow extends JFrame {
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         previewer.start();
+    }
+
+    public void setSheet(SpriteSheet sheet) {
+        this.sheet = sheet;
     }
 
     public void setCurrentColumn(int column) {

@@ -26,12 +26,13 @@ public class Previewer extends Canvas implements Runnable {
 
     private SpriteSheet sheet;
     private int frameWidth, frameHeight;
-    private String path;
+    private String path = "";
 
     private BufferedImage img;
     private int[] pixels;
     private int loopSpeed = 32;
     private boolean paused = false;
+    private int reloadTimer, reloadInterval;
 
     public Previewer() {
 
@@ -107,6 +108,15 @@ public class Previewer extends Canvas implements Runnable {
     }
 
     public void tick(int delta) {
+        if (reloadTimer > 0) reloadTimer -= delta;
+        if (reloadTimer <= 0) {
+            if (!path.equals("")) {
+                if (frameWidth != 0 && frameHeight != 0) {
+                    sheet = new SpriteSheet(frameWidth, frameHeight, path);
+                    reloadTimer = reloadInterval;
+                }
+            }
+        }
         if (renderMode != null && !paused)
             renderMode.tick(delta, sheet);
     }
@@ -161,5 +171,11 @@ public class Previewer extends Canvas implements Runnable {
     public synchronized void setRenderMode(RenderMode renderMode) {
         this.renderMode = renderMode;
     }
+
+    public synchronized void setReloadInterval(int interval) {
+        reloadInterval = interval;
+        reloadTimer = reloadInterval;
+    }
+
 }
 

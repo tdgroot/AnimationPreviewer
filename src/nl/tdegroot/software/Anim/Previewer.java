@@ -131,7 +131,7 @@ public class Previewer extends Canvas implements Runnable {
         screen.clear();
 
         if (renderMode != null)
-            renderMode.render(50, 50, sheet, screen);
+            renderMode.render(0, 0, sheet, screen);
 
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];

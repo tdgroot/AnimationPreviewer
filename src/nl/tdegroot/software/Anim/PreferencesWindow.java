@@ -55,12 +55,12 @@ public class PreferencesWindow extends JFrame {
         }
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 450, 315);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        tabbedPane.setBounds(0, 0, 442, 273);
+        tabbedPane.setBounds(0, 0, 442, 288);
         contentPane.add(tabbedPane);
 
         JPanel panel = new JPanel();
@@ -68,7 +68,7 @@ public class PreferencesWindow extends JFrame {
         panel.setLayout(null);
 
         tbFilePath = new JTextField();
-        tbFilePath.setBounds(104, 11, 86, 20);
+        tbFilePath.setBounds(120, 8, 86, 20);
         panel.add(tbFilePath);
         tbFilePath.setColumns(10);
 
@@ -82,7 +82,7 @@ public class PreferencesWindow extends JFrame {
                 chooseFile();
             }
         });
-        button.setBounds(200, 11, 28, 19);
+        button.setBounds(216, 8, 28, 19);
         panel.add(button);
 
         JLabel lblFrameWidth = new JLabel("Frame Width:");
@@ -90,12 +90,12 @@ public class PreferencesWindow extends JFrame {
         panel.add(lblFrameWidth);
 
         tbFrameWidth = new JTextField();
-        tbFrameWidth.setBounds(104, 48, 86, 20);
+        tbFrameWidth.setBounds(120, 45, 86, 20);
         panel.add(tbFrameWidth);
         tbFrameWidth.setColumns(10);
 
         JLabel label_1 = new JLabel("px");
-        label_1.setBounds(199, 51, 29, 14);
+        label_1.setBounds(215, 48, 29, 14);
         panel.add(label_1);
 
         JLabel lblFrameHeight = new JLabel("Frame Height:");
@@ -103,12 +103,12 @@ public class PreferencesWindow extends JFrame {
         panel.add(lblFrameHeight);
 
         tbFrameHeight = new JTextField();
-        tbFrameHeight.setBounds(104, 79, 86, 20);
+        tbFrameHeight.setBounds(120, 76, 86, 20);
         panel.add(tbFrameHeight);
         tbFrameHeight.setColumns(10);
 
         JLabel label_2 = new JLabel("px");
-        label_2.setBounds(200, 82, 29, 14);
+        label_2.setBounds(216, 79, 29, 14);
         panel.add(label_2);
 
         JButton btnUpdateSpritesheet = new JButton("Update Spritesheet");
@@ -121,17 +121,17 @@ public class PreferencesWindow extends JFrame {
         panel.add(btnUpdateSpritesheet);
 
         JLabel lblReloadInterval = new JLabel("Reload Interval:");
-        lblReloadInterval.setBounds(10, 107, 84, 14);
+        lblReloadInterval.setBounds(10, 107, 100, 14);
         panel.add(lblReloadInterval);
 
         tbInterval = new JTextField();
         tbInterval.setText("1000");
-        tbInterval.setBounds(104, 104, 86, 20);
+        tbInterval.setBounds(120, 101, 86, 20);
         panel.add(tbInterval);
         tbInterval.setColumns(10);
 
         JLabel lblMs = new JLabel("ms");
-        lblMs.setBounds(200, 107, 46, 14);
+        lblMs.setBounds(216, 104, 46, 14);
         panel.add(lblMs);
 
         JPanel panel_2 = new JPanel();
@@ -233,17 +233,17 @@ public class PreferencesWindow extends JFrame {
         panel_1.setLayout(null);
 
         tbPaintWidth = new JTextField();
-        tbPaintWidth.setBounds(82, 11, 86, 20);
+        tbPaintWidth.setBounds(83, 11, 86, 20);
         panel_1.add(tbPaintWidth);
         tbPaintWidth.setText("256");
         tbPaintWidth.setColumns(10);
 
         JLabel lblWidth = new JLabel("Paint Width:");
-        lblWidth.setBounds(10, 14, 62, 14);
+        lblWidth.setBounds(10, 14, 75, 14);
         panel_1.add(lblWidth);
 
         JLabel lblPaintHeight = new JLabel("Paint Height:");
-        lblPaintHeight.setBounds(231, 14, 62, 14);
+        lblPaintHeight.setBounds(218, 14, 75, 14);
         panel_1.add(lblPaintHeight);
 
         tbPaintHeight = new JTextField();
@@ -253,7 +253,7 @@ public class PreferencesWindow extends JFrame {
         tbPaintHeight.setColumns(10);
 
         JLabel lblNewLabel = new JLabel("px");
-        lblNewLabel.setBounds(178, 14, 29, 14);
+        lblNewLabel.setBounds(179, 14, 29, 14);
         panel_1.add(lblNewLabel);
 
         JLabel label = new JLabel("px");
@@ -261,7 +261,7 @@ public class PreferencesWindow extends JFrame {
         panel_1.add(label);
 
         tbScale = new JTextField();
-        tbScale.setBounds(82, 42, 86, 20);
+        tbScale.setBounds(83, 42, 86, 20);
         panel_1.add(tbScale);
         tbScale.setText("4");
         tbScale.setColumns(10);

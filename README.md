@@ -3,6 +3,9 @@ AnimationPreviewer
 
 An application which lets you inspect a animation spritesheet.
 
+You can download the latest Jar file here:
+https://github.com/Desmaster/AnimationPreviewer/raw/master/out/artifacts/AnimationPreviewer/AnimationPreviewer.jar
+
 Features
 - 3 Render Modes:
 	- Full Sheet Loop: Render whole spritesheet

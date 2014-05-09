@@ -4,9 +4,9 @@ import nl.tdegroot.software.Anim.PreferencesWindow;
 import nl.tdegroot.software.Anim.gfx.Screen;
 import nl.tdegroot.software.Anim.gfx.SpriteSheet;
 
-public class CustomRenderMode extends RenderMode {
+public class RowRenderMode extends RenderMode {
 
-    public CustomRenderMode(int startColumn, int startRow, int columns, int rows, PreferencesWindow preferences) {
+    public RowRenderMode(int startColumn, int startRow, int columns, int rows, PreferencesWindow preferences) {
         super(startColumn, startRow, columns, rows, preferences);
     }
 
@@ -16,10 +16,10 @@ public class CustomRenderMode extends RenderMode {
         time++;
         if (sheet != null) {
             if (time % loopSpeed == 0) {
-                column = (column + 1);
+                column++;
                 if (column >= columns) {
                     column = 0;
-                    row = (row + 1);
+                    row++;
                     if (row >= rows) {
                         row = 0;
                     }
@@ -53,7 +53,7 @@ public class CustomRenderMode extends RenderMode {
     public void render(int x, int y, SpriteSheet sheet, Screen screen) {
         int c = (startColumn + column) % columns;
         int r = (startRow + row);
-        if (r >= sheet.yy){
+        if (r >= sheet.yy) {
             row = 0;
             r = startRow;
         }
@@ -61,4 +61,5 @@ public class CustomRenderMode extends RenderMode {
         preferences.setCurrentRow(r);
         sheet.render(x, y, c, r, screen);
     }
+
 }

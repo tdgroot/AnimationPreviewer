@@ -3,8 +3,7 @@ package nl.tdegroot.software.Anim.gfx;
 public class SpriteSheet {
 
     public int size;
-    public int xx;
-    public int yy;
+    public int xx, yy;
     public int frameWidth, frameHeight;
     public int sheetWidth, sheetHeight;
     private Sprite sheet;

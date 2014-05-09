@@ -1,9 +1,12 @@
 package nl.tdegroot.software.Anim.gfx.rendermode;
 
+import nl.tdegroot.software.Anim.PreferencesWindow;
 import nl.tdegroot.software.Anim.gfx.Screen;
 import nl.tdegroot.software.Anim.gfx.SpriteSheet;
 
 public abstract class RenderMode {
+
+    protected PreferencesWindow preferences;
 
     protected int startColumn, startRow;
     protected int columns, rows;
@@ -11,14 +14,19 @@ public abstract class RenderMode {
 
     protected int time, animIndex;
 
-    public RenderMode(int startColumn, int startRow, int columns, int rows) {
+    public RenderMode(int startColumn, int startRow, int columns, int rows, PreferencesWindow preferences) {
         this.startColumn = startColumn;
         this.startRow = startRow;
         this.columns = columns;
         this.rows = rows;
+        this.preferences = preferences;
     }
 
     public abstract void tick(int delta, SpriteSheet sheet);
+
+    public abstract void previousFrame(SpriteSheet sheet);
+
+    public abstract void nextFrame(SpriteSheet sheet);
 
     public abstract void render(int x, int y, SpriteSheet sheet, Screen screen);
 

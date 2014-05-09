@@ -31,6 +31,7 @@ public class Previewer extends Canvas implements Runnable {
     private BufferedImage img;
     private int[] pixels;
     private int loopSpeed = 32;
+    private boolean paused = false;
 
     public Previewer() {
 
@@ -51,6 +52,14 @@ public class Previewer extends Canvas implements Runnable {
         thread = new Thread(this, "Game");
         thread.start();
         running = true;
+    }
+
+    public void pause() {
+        paused = true;
+    }
+
+    public void resume() {
+        paused = false;
     }
 
     public synchronized void stop() {
@@ -98,7 +107,7 @@ public class Previewer extends Canvas implements Runnable {
     }
 
     public void tick(int delta) {
-        if (renderMode != null)
+        if (renderMode != null && !paused)
             renderMode.tick(delta, sheet);
     }
 

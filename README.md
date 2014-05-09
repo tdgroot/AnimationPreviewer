@@ -3,7 +3,7 @@ AnimationPreviewer
 
 An application which lets you inspect a animation spritesheet.
 
-You can download the latest Jar file here:
+You can download the latest Jar file here:  
 [AnimationPreviewer.jar](https://github.com/Desmaster/AnimationPreviewer/raw/master/out/artifacts/AnimationPreviewer/AnimationPreviewer.jar "AnimationPreviewer.jar")
 
 Features

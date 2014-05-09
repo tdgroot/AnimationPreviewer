@@ -1,0 +1,2 @@
+Manifest-Version: 0.1
+Main-Class: nl.tdegroot.software.Anim.Boot

@@ -446,23 +446,6 @@ public class PreferencesWindow extends JFrame {
 
     private void chooseFile() {
         final JFileChooser fc = new JFileChooser();
-        fc.setFileFilter(new FileFilter() {
-            public boolean accept(File file) {
-                String extension = "";
-                int i = file.getName().lastIndexOf('.');
-                if (i > 0) {
-                    extension = file.getName().substring(i + 1).toLowerCase();
-                }
-                if (extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg") || extension.equals("bmp"))
-                    return true;
-
-                return false;
-            }
-
-            public String getDescription() {
-                return "Image Files (*.png, *.jpg, *.jpeg, *.bmp)";
-            }
-        });
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.CANCEL_OPTION) return;
         String path = fc.getSelectedFile().toPath().toString();

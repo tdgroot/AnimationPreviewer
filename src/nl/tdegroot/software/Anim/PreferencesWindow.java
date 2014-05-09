@@ -222,7 +222,7 @@ public class PreferencesWindow extends JFrame {
         panel_2.add(lblRenderMode);
 
         spLoopSpeed = new JSpinner();
-        spLoopSpeed.setModel(new SpinnerNumberModel(new Integer(8), new Integer(0), null, new Integer(1)));
+        spLoopSpeed.setModel(new SpinnerNumberModel(new Integer(8), new Integer(1), null, new Integer(1)));
         spLoopSpeed.setBounds(80, 10, 60, 18);
         panel_2.add(spLoopSpeed);
 
@@ -402,9 +402,9 @@ public class PreferencesWindow extends JFrame {
                 if (sheet != null)
                     spColumns.setValue(sheet.xx);
                 spRows.setValue(1);
-                spStartColumn.setEnabled(false);
+                spStartColumn.setEnabled(true);
                 spStartRow.setEnabled(true);
-                spColumns.setEnabled(false);
+                spColumns.setEnabled(true);
                 spRows.setEnabled(false);
             } else if (rdbtnCustom.isSelected()) {
                 renderMode = new CustomRenderMode(startColumn, startRow, columns, rows, this);

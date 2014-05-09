@@ -2,6 +2,7 @@ package nl.tdegroot.software.Anim.gfx;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -12,7 +13,7 @@ public class Sprite {
 
     public Sprite(String ref) {
         try {
-            BufferedImage image = ImageIO.read(new FileInputStream(ref));
+            BufferedImage image = ImageIO.read(new File(ref));
             width = image.getWidth();
             height = image.getHeight();
             pixels = new int[width * height];

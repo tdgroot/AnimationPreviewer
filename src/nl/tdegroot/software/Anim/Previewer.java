@@ -164,10 +164,6 @@ public class Previewer extends Canvas implements Runnable {
         this.sheet = sheet;
     }
 
-    public RenderMode getRenderMode() {
-        return renderMode;
-    }
-
     public synchronized void setRenderMode(RenderMode renderMode) {
         this.renderMode = renderMode;
     }

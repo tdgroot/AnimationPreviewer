@@ -381,7 +381,7 @@ public class PreferencesWindow extends JFrame {
             spColumns.setModel(new SpinnerNumberModel(sheet.xx, 0, sheet.xx, 1));
             spRows.setModel(new SpinnerNumberModel(0, 0, sheet.yy, 1));
             spStartColumn.setModel(new SpinnerNumberModel(0, 0, sheet.xx - 1, 1));
-            spStartRow.setModel(new SpinnerNumberModel(0, 0, sheet.yy - 1, 1));
+            spStartRow.setModel(new SpinnerNumberModel(0, 0, sheet.yy, 1));
 
             if (rdbtnFull.isSelected()) {
                 renderMode = new FullRenderMode(this);

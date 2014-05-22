@@ -2,7 +2,6 @@
 ## Eclipse
 #################
 
-.idea/
 *.iml
 out/production/
 

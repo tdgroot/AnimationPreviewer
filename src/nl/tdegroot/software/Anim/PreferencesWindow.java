@@ -481,7 +481,7 @@ public class PreferencesWindow extends JFrame {
 
         frame.getContentPane().add(previewer);
         frame.pack();
-        frame.setTitle("Animation Previewer");
+        frame.setTitle("Animation Previewer 0.9");
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

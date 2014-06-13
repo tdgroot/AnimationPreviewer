@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a48b0bae-9ca3-485e-a3dd-2a721a84efe6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/tdegroot/software/Anim/PreferencesWindow.java" afterPath="$PROJECT_DIR$/src/nl/tdegroot/software/Anim/PreferencesWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Animation Previewer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,19 +72,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SpriteSheet.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SpriteSheet.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/nl/tdegroot/software/Anim/gfx/SpriteSheet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="24" selection-start="478" selection-end="478" vertical-scroll-proportion="0.1660281" vertical-offset="142" max-vertical-offset="969">
+            <state line="16" column="24" selection-start="478" selection-end="478" vertical-scroll-proportion="0.0" vertical-offset="142" max-vertical-offset="969">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PreferencesWindow.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="PreferencesWindow.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/nl/tdegroot/software/Anim/PreferencesWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="386" column="41" selection-start="12840" selection-end="12840" vertical-scroll-proportion="0.0" vertical-offset="6334" max-vertical-offset="8653">
+            <state line="483" column="47" selection-start="16770" selection-end="16770" vertical-scroll-proportion="0.533758" vertical-offset="6942" max-vertical-offset="7769">
               <folding />
             </state>
           </provider>
@@ -148,7 +149,7 @@
       <file leaf-file-name="Screen.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/nl/tdegroot/software/Anim/gfx/Screen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="0" selection-start="893" selection-end="893" vertical-scroll-proportion="0.0" vertical-offset="308" max-vertical-offset="731">
+            <state line="32" column="0" selection-start="893" selection-end="893" vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="731">
               <folding />
             </state>
           </provider>
@@ -198,8 +199,8 @@
         <option value="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
         <option value="$PROJECT_DIR$/src/nl/tdegroot/software/Anim/Previewer.java" />
         <option value="$PROJECT_DIR$/src/nl/tdegroot/software/Anim/gfx/Sprite.java" />
-        <option value="$PROJECT_DIR$/src/nl/tdegroot/software/Anim/PreferencesWindow.java" />
         <option value="$PROJECT_DIR$/src/nl/tdegroot/software/Anim/gfx/SpriteSheet.java" />
+        <option value="$PROJECT_DIR$/src/nl/tdegroot/software/Anim/PreferencesWindow.java" />
       </list>
     </option>
   </component>
@@ -233,7 +234,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -335,6 +335,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -569,7 +570,11 @@
       <created>1399637522712</created>
       <updated>1399637522712</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Changed Title">
+      <created>1402581526337</created>
+      <updated>1402581526337</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -619,7 +624,8 @@
     <MESSAGE value="Fixed render bugs and added controls" />
     <MESSAGE value="Added Reload Timing" />
     <MESSAGE value="Fixed some offset bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed some offset bugs" />
+    <MESSAGE value="Changed Title" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed Title" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -961,13 +967,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/tdegroot/software/Anim/PreferencesWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="386" column="41" selection-start="12840" selection-end="12840" vertical-scroll-proportion="0.0" vertical-offset="6334" max-vertical-offset="8653">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/tdegroot/software/Anim/gfx/rendermode/FullRenderMode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="27" column="46" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="714">
@@ -977,7 +976,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/tdegroot/software/Anim/gfx/SpriteSheet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="24" selection-start="478" selection-end="478" vertical-scroll-proportion="0.1660281" vertical-offset="142" max-vertical-offset="969">
+        <state line="16" column="24" selection-start="478" selection-end="478" vertical-scroll-proportion="0.0" vertical-offset="142" max-vertical-offset="969">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/tdegroot/software/Anim/PreferencesWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="483" column="47" selection-start="16770" selection-end="16770" vertical-scroll-proportion="0.533758" vertical-offset="6942" max-vertical-offset="7769">
           <folding />
         </state>
       </provider>
